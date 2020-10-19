@@ -1,30 +1,28 @@
 package com.valdir.mc.resources;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.valdir.mc.domain.Categoria;
+import com.valdir.mc.services.CategoriaService;
 
 @RestController
 @RequestMapping(value = "/clientes")
 public class ClienteResource {
+	
+	@Autowired
+	private CategoriaService categoriaService;
 
-	@RequestMapping(method = RequestMethod.GET)
-	public List<Categoria> find() {
-		List<Categoria> list = new ArrayList<>();
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	public ResponseEntity<Categoria> find(@PathVariable Integer id) {
 		
-		Categoria cat1 = new Categoria(1, "Informática");
-		Categoria cat2 = new Categoria(2, "Escritório");
+		Categoria obj = categoriaService.find(id);
 		
-		list.add(cat1);
-		list.add(cat2);
-		
-		return list;
+		return ResponseEntity.ok().body(obj);
 	}
 
 }
