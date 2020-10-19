@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.valdir.mc.domain.Categoria;
 
 @RestController
-@RequestMapping("/clientes")
+@RequestMapping(value = "/clientes")
 public class ClienteResource {
 
 	@RequestMapping(method = RequestMethod.GET)
