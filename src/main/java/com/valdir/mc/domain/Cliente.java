@@ -1,12 +1,17 @@
 package com.valdir.mc.domain;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import com.valdir.mc.domain.enums.TipoCliente;
 
-public class Cliente {
+public class Cliente implements Serializable{
 
+	private static final long serialVersionUID = 1L;
+	
 	private Integer id;
 	private String nome;
 	private String email;
@@ -14,6 +19,8 @@ public class Cliente {
 	private TipoCliente tipo;
 
 	private Set<String> telefones = new HashSet<>();
+	
+	private List<Endereco> enderecos = new ArrayList<>();
 
 	public Cliente() {
 		super();
@@ -75,6 +82,14 @@ public class Cliente {
 
 	public void setTelefones(Set<String> telefones) {
 		this.telefones = telefones;
+	}
+
+	public List<Endereco> getEnderecos() {
+		return enderecos;
+	}
+
+	public void setEnderecos(List<Endereco> enderecos) {
+		this.enderecos = enderecos;
 	}
 
 	@Override
