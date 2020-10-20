@@ -11,8 +11,8 @@ import com.valdir.mc.domain.Categoria;
 import com.valdir.mc.services.CategoriaService;
 
 @RestController
-@RequestMapping(value = "/clientes")
-public class ClienteResource {
+@RequestMapping(value = "/categorias")
+public class CategoriaResource {
 	
 	@Autowired
 	private CategoriaService categoriaService;
