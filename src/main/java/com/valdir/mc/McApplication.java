@@ -24,6 +24,8 @@ import com.valdir.mc.repositories.CidadeRepository;
 import com.valdir.mc.repositories.ClienteRepository;
 import com.valdir.mc.repositories.EnderecoRepository;
 import com.valdir.mc.repositories.EstadoRepository;
+import com.valdir.mc.repositories.PagamentoRepository;
+import com.valdir.mc.repositories.PedidoRepository;
 import com.valdir.mc.repositories.ProdutoRepository;
 
 @SpringBootApplication
@@ -41,6 +43,10 @@ public class McApplication implements CommandLineRunner {
 	private ClienteRepository clienteRepository;
 	@Autowired
 	private EnderecoRepository enderecoRepository;
+	@Autowired
+	private PagamentoRepository pagamentoRepository;
+	@Autowired
+	private PedidoRepository pedidoRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(McApplication.class, args);
@@ -110,6 +116,10 @@ public class McApplication implements CommandLineRunner {
 		
 		PagamentoComBoleto pagto2 = new PagamentoComBoleto(null, EstadoPagamento.PENDENTE, ped2, sdf.parse("25/10/2020 23:30"), null);
 		ped2.setPagamento(pagto2);
+		
+		pedidoRepository.saveAll(Arrays.asList(ped1, ped2));
+		pagamentoRepository.saveAll(Arrays.asList(pagto1, pagto2));
+		
 	}
 
 }
