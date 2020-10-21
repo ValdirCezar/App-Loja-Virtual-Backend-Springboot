@@ -2,6 +2,8 @@ package com.valdir.mc.domain;
 
 import javax.persistence.Entity;
 
+import com.valdir.mc.domain.enums.EstadoPagamento;
+
 @Entity
 public class PagamentoComCartao extends Pagamento {
 
@@ -13,8 +15,8 @@ public class PagamentoComCartao extends Pagamento {
 		super();
 	}
 
-	public PagamentoComCartao(Integer numeroDeParcelas) {
-		super();
+	public PagamentoComCartao(Integer id, EstadoPagamento estado, Pedido pedido, Integer numeroDeParcelas) {
+		super(id, estado, pedido);
 		this.numeroDeParcelas = numeroDeParcelas;
 	}
 

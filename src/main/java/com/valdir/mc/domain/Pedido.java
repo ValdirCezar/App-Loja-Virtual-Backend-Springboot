@@ -41,13 +41,12 @@ public class Pedido implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Pedido(Integer id, Date instante, Endereco enderecoDeEntrega, Cliente cliente, Pagamento pagamento) {
+	public Pedido(Integer id, Date instante, Endereco enderecoDeEntrega, Cliente cliente) {
 		super();
 		this.id = id;
 		this.instante = instante;
 		this.enderecoDeEntrega = enderecoDeEntrega;
 		this.cliente = cliente;
-		this.pagamento = pagamento;
 	}
 
 	public Integer getId() {

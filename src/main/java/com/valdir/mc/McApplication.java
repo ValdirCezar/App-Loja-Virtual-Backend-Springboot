@@ -1,5 +1,6 @@
 package com.valdir.mc;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,11 @@ import com.valdir.mc.domain.Cidade;
 import com.valdir.mc.domain.Cliente;
 import com.valdir.mc.domain.Endereco;
 import com.valdir.mc.domain.Estado;
+import com.valdir.mc.domain.PagamentoComBoleto;
+import com.valdir.mc.domain.PagamentoComCartao;
+import com.valdir.mc.domain.Pedido;
 import com.valdir.mc.domain.Produto;
+import com.valdir.mc.domain.enums.EstadoPagamento;
 import com.valdir.mc.domain.enums.TipoCliente;
 import com.valdir.mc.repositories.CategoriaRepository;
 import com.valdir.mc.repositories.CidadeRepository;
@@ -92,6 +97,19 @@ public class McApplication implements CommandLineRunner {
 
 		clienteRepository.saveAll(Arrays.asList(cli1));
 		enderecoRepository.saveAll(Arrays.asList(e1, e2));
+		
+		// ------ Pedido - Pagamento --------
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		
+		Pedido ped1 = new Pedido(null, sdf.parse("21/10/2020 16:00"), e1, cli1);
+		
+		PagamentoComCartao pagto1 = new PagamentoComCartao(null, EstadoPagamento.QUITADO, ped1, 6);
+		ped1.setPagamento(pagto1);
+		
+		Pedido ped2 = new Pedido(null, sdf.parse("22/11/2020 11:00"), e2, cli1);
+		
+		PagamentoComBoleto pagto2 = new PagamentoComBoleto(null, EstadoPagamento.PENDENTE, ped2, sdf.parse("25/10/2020 23:30"), null);
+		ped2.setPagamento(pagto2);
 	}
 
 }

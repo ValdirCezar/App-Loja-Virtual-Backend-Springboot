@@ -16,15 +16,15 @@ import com.valdir.mc.domain.enums.EstadoPagamento;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Pagamento implements Serializable{
+public abstract class Pagamento implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private Integer estado;
-	
+	private EstadoPagamento estado;
+
 	@OneToOne
 	@JoinColumn(name = "pedido_id")
 	@MapsId
@@ -35,7 +35,7 @@ public class Pagamento implements Serializable{
 		// TODO Auto-generated constructor stub
 	}
 
-	public Pagamento(Integer id, Integer estado, Pedido pedido) {
+	public Pagamento(Integer id, EstadoPagamento estado, Pedido pedido) {
 		super();
 		this.id = id;
 		this.estado = estado;
@@ -51,11 +51,11 @@ public class Pagamento implements Serializable{
 	}
 
 	public EstadoPagamento getEstado() {
-		return EstadoPagamento.toEnum(estado);
+		return estado;
 	}
 
 	public void setEstado(EstadoPagamento estado) {
-		this.estado = estado.getCod();
+		this.estado = estado;
 	}
 
 	public Pedido getPedido() {
