@@ -1,21 +1,45 @@
 package com.valdir.mc.domain;
 
+import java.io.Serializable;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.MapsId;
+import javax.persistence.OneToOne;
+
 import com.valdir.mc.domain.enums.EstadoPagamento;
 
-public class Pagamento {
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
+public class Pagamento implements Serializable{
 
+	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private Integer estado;
+	
+	@OneToOne
+	@JoinColumn(name = "pedido_id")
+	@MapsId
+	private Pedido pedido;
 
 	public Pagamento() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Pagamento(Integer id, Integer estado) {
+	public Pagamento(Integer id, Integer estado, Pedido pedido) {
 		super();
 		this.id = id;
 		this.estado = estado;
+		this.pedido = pedido;
 	}
 
 	public Integer getId() {
@@ -32,6 +56,14 @@ public class Pagamento {
 
 	public void setEstado(EstadoPagamento estado) {
 		this.estado = estado.getCod();
+	}
+
+	public Pedido getPedido() {
+		return pedido;
+	}
+
+	public void setPedido(Pedido pedido) {
+		this.pedido = pedido;
 	}
 
 	@Override

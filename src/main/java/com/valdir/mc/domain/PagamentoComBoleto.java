@@ -2,19 +2,18 @@ package com.valdir.mc.domain;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+
+@Entity
 public class PagamentoComBoleto extends Pagamento {
 
+	private static final long serialVersionUID = 1L;
+	
 	private Date dataVencimento;
 	private Date dataPagamento;
 
 	public PagamentoComBoleto() {
 		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	public PagamentoComBoleto(Integer id, Integer estado) {
-		super(id, estado);
-		// TODO Auto-generated constructor stub
 	}
 
 	public PagamentoComBoleto(Date dataVencimento, Date dataPagamento) {

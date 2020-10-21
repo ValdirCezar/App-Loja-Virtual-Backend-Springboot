@@ -1,17 +1,16 @@
 package com.valdir.mc.domain;
 
+import javax.persistence.Entity;
+
+@Entity
 public class PagamentoComCartao extends Pagamento {
+
+	private static final long serialVersionUID = 1L;
 
 	private Integer numeroDeParcelas;
 
 	public PagamentoComCartao() {
 		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	public PagamentoComCartao(Integer id, Integer estado) {
-		super(id, estado);
-		// TODO Auto-generated constructor stub
 	}
 
 	public PagamentoComCartao(Integer numeroDeParcelas) {
