@@ -13,6 +13,7 @@ import com.valdir.mc.domain.Cidade;
 import com.valdir.mc.domain.Cliente;
 import com.valdir.mc.domain.Endereco;
 import com.valdir.mc.domain.Estado;
+import com.valdir.mc.domain.ItemPedido;
 import com.valdir.mc.domain.PagamentoComBoleto;
 import com.valdir.mc.domain.PagamentoComCartao;
 import com.valdir.mc.domain.Pedido;
@@ -24,6 +25,7 @@ import com.valdir.mc.repositories.CidadeRepository;
 import com.valdir.mc.repositories.ClienteRepository;
 import com.valdir.mc.repositories.EnderecoRepository;
 import com.valdir.mc.repositories.EstadoRepository;
+import com.valdir.mc.repositories.ItemPedidoRepository;
 import com.valdir.mc.repositories.PagamentoRepository;
 import com.valdir.mc.repositories.PedidoRepository;
 import com.valdir.mc.repositories.ProdutoRepository;
@@ -47,6 +49,8 @@ public class McApplication implements CommandLineRunner {
 	private PagamentoRepository pagamentoRepository;
 	@Autowired
 	private PedidoRepository pedidoRepository;
+	@Autowired
+	private ItemPedidoRepository itemPedidoRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(McApplication.class, args);
@@ -119,6 +123,20 @@ public class McApplication implements CommandLineRunner {
 		
 		pedidoRepository.saveAll(Arrays.asList(ped1, ped2));
 		pagamentoRepository.saveAll(Arrays.asList(pagto1, pagto2));
+		
+		// ------ ItemPedido e ItemPedidoPK
+		ItemPedido ip1 = new ItemPedido(ped1, p1, 0.00, 1, 2000.00);
+		ItemPedido ip2 = new ItemPedido(ped1, p3, 0.00, 2, 80.00);
+		ItemPedido ip3 = new ItemPedido(ped2, p2, 100.00, 1, 800.00);
+		
+		ped1.getItens().addAll(Arrays.asList(ip1, ip2));
+		ped2.getItens().addAll(Arrays.asList(ip3));
+		
+		p1.getItens().addAll(Arrays.asList(ip1, ip2));
+		p2.getItens().addAll(Arrays.asList(ip2));
+		p3.getItens().addAll(Arrays.asList(ip2));
+		
+		itemPedidoRepository.saveAll(Arrays.asList(ip1, ip2, ip3));
 		
 	}
 
