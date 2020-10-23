@@ -13,14 +13,19 @@ import com.valdir.mc.services.exceptions.ObjectNotFoubdException;
 public class CategoriaService {
 
 	@Autowired
-	private CategoriaRepository categoriaRepository;
+	private CategoriaRepository repo;
 
 	public Categoria find(Integer id) {
 
-		Optional<Categoria> obj = categoriaRepository.findById(id);
+		Optional<Categoria> obj = repo.findById(id);
 
 		return obj.orElseThrow(() -> new ObjectNotFoubdException(
 				"Objeto não encontrado! ID:" + id + ", Tipo: " + Categoria.class.getName()));
+	}
+	
+	public Categoria insert(Categoria obj) {
+		obj.setId(null);
+		return repo.save(obj);
 	}
 
 }
