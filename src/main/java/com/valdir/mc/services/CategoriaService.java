@@ -3,10 +3,12 @@ package com.valdir.mc.services;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.valdir.mc.domain.Categoria;
 import com.valdir.mc.repositories.CategoriaRepository;
+import com.valdir.mc.services.exceptions.DataIntegrityException;
 import com.valdir.mc.services.exceptions.ObjectNotFoubdException;
 
 @Service
@@ -35,7 +37,11 @@ public class CategoriaService {
 	
 	public void delete(Integer id) {
 		find(id);
-		repo.deleteById(id);
+		try {
+			repo.deleteById(id);
+		} catch (DataIntegrityViolationException e) {
+			throw new DataIntegrityException("Não foi possível excluir categoria com produtos");
+		}
 	}
 
 }
