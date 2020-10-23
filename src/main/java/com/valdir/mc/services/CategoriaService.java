@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.valdir.mc.domain.Categoria;
+import com.valdir.mc.domain.dto.CategoriaDTO;
 import com.valdir.mc.repositories.CategoriaRepository;
 import com.valdir.mc.services.exceptions.DataIntegrityException;
 import com.valdir.mc.services.exceptions.ObjectNotFoubdException;
@@ -55,6 +56,10 @@ public class CategoriaService {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage,
 				org.springframework.data.domain.Sort.Direction.valueOf(direction), orderBy);
 		return repo.findAll(pageRequest);
+	}
+	
+	public Categoria fromDTO(CategoriaDTO objDto) {
+		return new Categoria(objDto.getId(), objDto.getNome());
 	}
 
 }
