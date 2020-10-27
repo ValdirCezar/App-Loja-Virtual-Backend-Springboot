@@ -2,22 +2,46 @@ package com.valdir.mc.domain.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
+
+import com.valdir.mc.services.validation.ClienteInsert;
+
+@ClienteInsert
 public class ClienteNewDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	@NotEmpty(message = "Preenchimento obrigatório!")
+	@Length(min = 5, max = 100, message = "O tamanho deve ser entre 5 e 50 caracteres")
 	private String nome;
+	
+	@NotEmpty(message = "Preenchimento obrigatório!")
+	@NotEmpty(message = "E-mail inválido!")
 	private String email;
+	
+	@NotEmpty(message = "Preenchimento obrigatório!")
 	private String cpfOuCnpj;
+	
 	private Integer tipo;
 
 	private String logradouro;
+	
+	@NotEmpty(message = "Preenchimento obrigatório!")
 	private String numero;
+	
 	private String complemento;
+	
+	@NotEmpty(message = "Preenchimento obrigatório!")
 	private String bairro;
+	
+	@NotEmpty(message = "Preenchimento obrigatório!")
 	private String cep;
 
+	@NotEmpty(message = "Preenchimento obrigatório!")
 	private String telefone1;
+	
 	private String telefone2;
 	private String telefone3;
 
