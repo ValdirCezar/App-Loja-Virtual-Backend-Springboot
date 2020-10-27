@@ -87,9 +87,9 @@ public class McApplication implements CommandLineRunner {
 		Estado est1 = new Estado(null, "Minas Gerais");
 		Estado est2 = new Estado(null, "São Paulo");
 
-		Cidade c1 = new Cidade(null, "Uberlândia");
-		Cidade c2 = new Cidade(null, "São Paulo");
-		Cidade c3 = new Cidade(null, "Campinas");
+		Cidade c1 = new Cidade(null, "Uberlândia", est1);
+		Cidade c2 = new Cidade(null, "São Paulo", est2);
+		Cidade c3 = new Cidade(null, "Campinas", est2);
 
 		est1.getCidades().addAll(Arrays.asList(c1));
 		est2.getCidades().addAll(Arrays.asList(c2, c3));
