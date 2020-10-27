@@ -31,11 +31,10 @@ public class Cidade implements Serializable{
 		// TODO Auto-generated constructor stub
 	}
 
-	public Cidade(Integer id, String nome, Estado estado) {
+	public Cidade(Integer id, String nome) {
 		super();
 		this.id = id;
 		this.nome = nome;
-		this.estado = estado;
 	}
 
 	public Integer getId() {
