@@ -1,6 +1,7 @@
 package com.valdir.mc.services.validation;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -34,8 +35,12 @@ public class ClienteUpdateValidator implements ConstraintValidator<ClienteUpdate
 		Map<String, String> map = (Map<String, String>) request.getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
 		Integer urlId = Integer.parseInt(map.get("id"));
 
+		
+		List<FieldMessage> list = new ArrayList<>();
+
+		
 		Cliente obj = clienteRepository.findByEmail(objDto.getEmail());
-		if (obj != null) {
+		if (obj != null && !obj.getId().equals(urlId)) {
 			list.add(new FieldMessage("email", "E-mail já possui cadastro no sistema"));
 		}
 		
