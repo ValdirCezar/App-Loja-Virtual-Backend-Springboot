@@ -7,16 +7,16 @@ public enum EstadoPagamento {
 	private Integer cod;
 	private String descricao;
 
-	private EstadoPagamento(Integer cod, String descrica) {
+	private EstadoPagamento(Integer cod, String descricao) {
 		this.cod = cod;
-		this.descricao = descrica;
+		this.descricao = descricao;
 	}
 
 	public Integer getCod() {
 		return cod;
 	}
 
-	public String getDescrica() {
+	public String getDescricao() {
 		return descricao;
 	};
 

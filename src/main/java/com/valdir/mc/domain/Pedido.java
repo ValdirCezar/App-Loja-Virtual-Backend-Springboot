@@ -63,7 +63,7 @@ public class Pedido implements Serializable {
 		double soma = 0;
 		
 		for(ItemPedido ip : itens) {
-			soma += ip.getSubtotal();
+			soma += ip.getSubTotal();
 		}
 		return soma;
 	}
@@ -154,7 +154,7 @@ public class Pedido implements Serializable {
 		builder.append(", Cliente: ");
 		builder.append(getCliente().getNome());
 		builder.append(", Situação do pagamento: ");
-		builder.append(getPagamento().getEstado().getDescrica());
+		builder.append(getPagamento().getEstado().getDescricao());
 		builder.append("\nDetalhes: \n");
 		for(ItemPedido ip : itens) {
 			builder.append(ip.toString());
