@@ -15,9 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.valdir.mc.domain.Categoria;
 import com.valdir.mc.domain.Pedido;
-import com.valdir.mc.domain.dto.CategoriaDTO;
 import com.valdir.mc.services.PedidoService;
 
 @RestController
