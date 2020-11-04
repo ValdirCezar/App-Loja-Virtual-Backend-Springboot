@@ -16,9 +16,12 @@ import com.valdir.mc.domain.Cliente;
 import com.valdir.mc.domain.Endereco;
 import com.valdir.mc.domain.dto.ClienteDTO;
 import com.valdir.mc.domain.dto.ClienteNewDTO;
+import com.valdir.mc.domain.enums.Perfil;
 import com.valdir.mc.domain.enums.TipoCliente;
 import com.valdir.mc.repositories.ClienteRepository;
 import com.valdir.mc.repositories.EnderecoRepository;
+import com.valdir.mc.security.UserSS;
+import com.valdir.mc.services.exceptions.AuthorizationException;
 import com.valdir.mc.services.exceptions.DataIntegrityException;
 import com.valdir.mc.services.exceptions.ObjectNotFoubdException;
 
@@ -33,6 +36,12 @@ public class ClienteService {
 	private BCryptPasswordEncoder pe;
 
 	public Cliente find(Integer id) {
+		
+		UserSS user = UserService.authenticated();
+		if (user == null || !user.hasRole(Perfil.ADMIN) && !id.equals(user.getId())) {
+			throw new AuthorizationException("Acesso negado");
+		}
+		
 		Optional<Cliente> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoubdException(
 				"Objeto não encontrado! ID: " + id + ", Tipo: " + Cliente.class.getName()));
