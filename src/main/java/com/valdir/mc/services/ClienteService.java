@@ -1,4 +1,5 @@
 package com.valdir.mc.services;
+
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
@@ -40,12 +41,12 @@ public class ClienteService {
 	private S3Service s3service;
 
 	public Cliente find(Integer id) {
-		
+
 		UserSS user = UserService.authenticated();
 		if (user == null || !user.hasRole(Perfil.ADMIN) && !id.equals(user.getId())) {
 			throw new AuthorizationException("Acesso negado");
 		}
-		
+
 		Optional<Cliente> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoubdException(
 				"Objeto não encontrado! ID: " + id + ", Tipo: " + Cliente.class.getName()));
@@ -64,6 +65,7 @@ public class ClienteService {
 		updateData(newObj, obj);
 		return repo.save(newObj);
 	}
+
 	public void delete(Integer id) {
 		find(id);
 		try {
@@ -72,9 +74,11 @@ public class ClienteService {
 			throw new DataIntegrityException("Impossível deletar Cliente com entidades relacionadas");
 		}
 	}
+
 	public List<Cliente> findAll() {
 		return repo.findAll();
 	}
+
 	public Page<Cliente> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage,
 				org.springframework.data.domain.Sort.Direction.valueOf(direction), orderBy);
@@ -104,13 +108,27 @@ public class ClienteService {
 	public Cliente fromDTO(ClienteDTO objDto) {
 		return new Cliente(objDto.getId(), objDto.getNome(), objDto.getEmail(), null, null, null);
 	}
-	
+
 	private void updateData(Cliente newObj, Cliente obj) {
 		newObj.setNome(obj.getNome());
 		newObj.setEmail(obj.getEmail());
 	}
-	
+
 	public URI uploadProfilePicture(MultipartFile multiPartFile) {
-		return s3service.uploadFile(multiPartFile);
+
+		UserSS user = UserService.authenticated();
+		if (user == null) {
+			throw new AuthorizationException("Acesso negado");
+		}
+
+		URI uri = s3service.uploadFile(multiPartFile);
+
+		Cliente cli = repo.findByEmail(user.getUsername());
+		cli.setImageUrl(uri.toString());
+		repo.save(cli);
+
+		return uri;
 	}
+	
+	
 }
